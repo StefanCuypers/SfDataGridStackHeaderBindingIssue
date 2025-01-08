@@ -1,0 +1,56 @@
+﻿<Window x:Class="DataGridHeaderTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataGridHeaderTest"
+        mc:Ignorable="d"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        Loaded="MainWindow_Loaded"
+        Title="MainWindow" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance Type=local:MainWindow}"
+        >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Button Margin ="2" Content="Refresh" Click="Refresh_Click" HorizontalAlignment="Left" />
+            <Button Margin ="2" Content="Refresh No Delay" Click="RefreshNoDelay_Click" HorizontalAlignment="Left" />
+        </StackPanel>
+        <syncfusion:SfDataGrid
+            ItemsSource="{Binding CurrentMachine.VerzekeringsPolissen}"
+            Margin="2"
+            Grid.Column="1"
+            Grid.RowSpan="3"
+            Height="150"
+            AutoGenerateColumns="False"
+            HorizontalAlignment="Left"
+            AllowResizingColumns="True"
+            SelectionMode="Extended"
+            SelectionUnit="Row" 
+            AllowEditing="False"
+            AllowSorting="False"
+            FontSize="12"
+            RowHeight="17"
+            >
+            <syncfusion:SfDataGrid.StackedHeaderRows>
+                <syncfusion:StackedHeaderRow>
+                    <syncfusion:StackedHeaderRow.StackedColumns>
+                        <syncfusion:StackedColumn ChildColumns="MuntDisp" HeaderText="{Binding CurrentMachine.VerzekeringsPolissen.Totals.MuntDisp}" />
+                        <syncfusion:StackedColumn ChildColumns="Premie" HeaderText="{Binding CurrentMachine.VerzekeringsPolissen.Totals.TotaalPremie, StringFormat='#,##0.00'}" />
+                        <syncfusion:StackedColumn ChildColumns="Taksen" HeaderText="{Binding CurrentMachine.VerzekeringsPolissen.Totals.TotaalTaks, StringFormat='#,##0.00'}" />
+                        <syncfusion:StackedColumn ChildColumns="PolisNummer" HeaderText="" />
+                    </syncfusion:StackedHeaderRow.StackedColumns>
+                </syncfusion:StackedHeaderRow>
+            </syncfusion:SfDataGrid.StackedHeaderRows>
+            <syncfusion:SfDataGrid.Columns>
+                <syncfusion:GridTextColumn MappingName="MuntDisp" HeaderText="Munt" Width="50" />
+                <syncfusion:GridNumericColumn MappingName="Premie" HeaderText="Premie" NumberDecimalDigits="2" Width="75" />
+                <syncfusion:GridNumericColumn MappingName="Taksen" HeaderText="Taksen" NumberDecimalDigits="2" Width="75" />
+                <syncfusion:GridTextColumn MappingName="PolisNummer" HeaderText="Polis" Width="90" />
+            </syncfusion:SfDataGrid.Columns>
+        </syncfusion:SfDataGrid>
+    </Grid>
+</Window>
